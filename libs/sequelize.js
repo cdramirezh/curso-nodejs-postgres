@@ -1,5 +1,6 @@
 const { Sequelize } = require('sequelize');
 const chalk = require('chalk');
+const setupModels = require('../db/models');
 
 const { config } = require('../config/config');
 
@@ -11,5 +12,8 @@ const sequelize = new Sequelize(URI, {
   dialect: 'postgres',
   logging: (vaina) => console.log(chalk.bgCyan(vaina)),
 });
+
+setupModels(sequelize);
+sequelize.sync();
 
 module.exports = sequelize;

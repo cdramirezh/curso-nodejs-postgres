@@ -1,4 +1,4 @@
-const pool = require('../libs/postgres.pool');
+const { models } = require('../libs/sequelize');
 
 class UserService {
   constructor() {}
@@ -8,8 +8,8 @@ class UserService {
   }
 
   async find() {
-    const res = await pool.query('SELECT * FROM task');
-    return res.rows;
+    const res = await models.User.findAll();
+    return res;
   }
 
   async findOne(id) {
