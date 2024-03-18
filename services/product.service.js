@@ -2,10 +2,6 @@ const { models } = require('../libs/sequelize');
 const boom = require('@hapi/boom');
 
 class ProductsService {
-  constructor() {
-    this.products = [];
-  }
-
   async create(data) {
     const newProduct = await models.Product.create(data);
     return newProduct;
