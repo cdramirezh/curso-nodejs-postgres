@@ -1,3 +1,6 @@
+const { ValidationError } = require('sequelize');
+const boom = require('@hapi/boom');
+
 function logErrors (err, req, res, next) {
   console.error(err);
   next(err);
@@ -19,5 +22,15 @@ function boomErrorHandler(err, req, res, next) {
   }
 }
 
+const queryErrorHandler = (err, req, res, next) => {
+  if (err instanceof ValidationError)
+    boomErrorHandler(boom.conflict(err.errors[0].message), req, res, next);
+  else next(err);
+};
 
-module.exports = { logErrors, errorHandler, boomErrorHandler }
+module.exports = {
+  logErrors,
+  errorHandler,
+  boomErrorHandler,
+  queryErrorHandler,
+};
