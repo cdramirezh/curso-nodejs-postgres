@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { id: userId } = require('./user.schema');
+const { id: userId, createUserSchema } = require('./user.schema');
 
 const id = Joi.number().integer();
 const name = Joi.string().min(3).max(30);
@@ -10,7 +10,7 @@ const createCustomerSchema = Joi.object({
   name: name.required(),
   lastName: lastName.required(),
   phone: phone.required(),
-  userId: userId.required(),
+  user: createUserSchema,
 });
 const updateCustomerSchema = Joi.object({
   name: name.required(),
