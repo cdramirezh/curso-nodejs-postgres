@@ -15,7 +15,7 @@ class ProductsService {
   async findOne(id) {
     const product = await models.Product.findByPk(id);
     if (!product) throw boom.notFound('product not found');
-    if (product.isBlocked) throw boom.conflict('product is block');
+    if (product.isBlocked) throw boom.conflict('product is blocked');
     return product;
   }
 
