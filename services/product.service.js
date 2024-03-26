@@ -13,7 +13,7 @@ class ProductsService {
   }
 
   async findOne(id) {
-    const product = await models.Product.findByPk(id);
+    const product = await models.Product.findByPk(id, { include: ['category'] });
     if (!product) throw boom.notFound('product not found');
     if (product.isBlocked) throw boom.conflict('product is blocked');
     return product;
