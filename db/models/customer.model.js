@@ -46,6 +46,7 @@ class Customer extends Model {
   static associate(models) {
     const alias = { as: 'user' };
     this.belongsTo(models.User, alias);
+    this.hasMany(models.Order, { as: 'orders', foreignKey: 'customerId' });
   }
   static config(sequelize) {
     return {

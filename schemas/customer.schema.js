@@ -26,4 +26,5 @@ module.exports = {
   createCustomerSchema,
   updateCustomerSchema,
   getCustomerSchema,
+  id,
 };
