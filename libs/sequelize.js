@@ -11,7 +11,7 @@ const URI = `${ENGINE}://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/$
 
 const sequelize = new Sequelize(URI, {
   dialect: ENGINE,
-  logging: (vaina) => console.log(chalk.bgCyan(vaina)),
+  logging: (vaina) => console.log(chalk.cyan(vaina)),
 });
 
 setupModels(sequelize);
