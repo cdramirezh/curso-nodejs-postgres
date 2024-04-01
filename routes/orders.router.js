@@ -48,12 +48,13 @@ router.post(
 );
 
 router.post(
-  '/add-item',
+  '/:orderId/product',
   validatorHandler(addItemSchema, 'body'),
   async (req, res, next) => {
     try {
+      const { orderId } = req.params;
       const body = req.body;
-      const newItem = await service.addItem(body);
+      const newItem = await service.addItem({ ...body, orderId });
       res.status(201).json(newItem);
     } catch (error) {
       next(error);

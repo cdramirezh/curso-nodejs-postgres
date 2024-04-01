@@ -14,7 +14,6 @@ const getOrderSchema = Joi.object({
 });
 
 const addItemSchema = Joi.object({
-  orderId: id.required(),
   productId: productId.required(),
   amount: amount.required(),
 });
