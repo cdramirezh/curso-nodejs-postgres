@@ -25,6 +25,17 @@ const OrderSchema = {
     field: 'created_at',
     defaultValue: Sequelize.NOW,
   },
+  total: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      if (this.items.length > 0) {
+        return this.items.reduce(
+          (acum, item) => acum + item.price * item.OrderProduct.amount,
+          0
+        );
+      } else return 0;
+    },
+  },
 };
 
 class Order extends Model {
