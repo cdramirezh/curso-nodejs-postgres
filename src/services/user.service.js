@@ -23,6 +23,19 @@ class UserService {
     throw boom.notFound('user not found');
   }
 
+  async findByEmail(email) {
+    const user = await models.User.findOne({ where: { email } });
+    if (!user) throw boom.notFound('user not found');
+    return user;
+  }
+
+  async login(email, password) {
+    const user = await this.findByEmail(email);
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) throw boom.unauthorized('password is not correct');
+    return user;
+  }
+
   async update(id, changes) {
     const user = await this.findOne(id);
     return user.update(changes);
