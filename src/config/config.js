@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 
 const config = {
   env: process.env.NODE_ENV || 'dev',
@@ -10,6 +10,7 @@ const config = {
   dbPort: process.env.DB_PORT,
   dbEngine: process.env.DB_ENGINE,
   apiKey: process.env.API_KEY,
+  jwtSecret: process.env.JWT_SECRET,
 };
 
 module.exports = { config };
