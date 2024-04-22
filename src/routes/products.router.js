@@ -12,7 +12,8 @@ const {
 const router = express.Router();
 const service = new ProductsService();
 
-router.get('/',
+router.get(
+  '/',
   validatorHandler(queryProductSchema, 'query'),
   async (req, res, next) => {
     try {
@@ -24,7 +25,8 @@ router.get('/',
   }
 );
 
-router.get('/:id',
+router.get(
+  '/:id',
   validatorHandler(getProductSchema, 'params'),
   async (req, res, next) => {
     try {
@@ -37,7 +39,8 @@ router.get('/:id',
   }
 );
 
-router.post('/',
+router.post(
+  '/',
   validatorHandler(createProductSchema, 'body'),
   async (req, res, next) => {
     try {
@@ -50,7 +53,8 @@ router.post('/',
   }
 );
 
-router.patch('/:id',
+router.patch(
+  '/:id',
   validatorHandler(getProductSchema, 'params'),
   validatorHandler(updateProductSchema, 'body'),
   async (req, res, next) => {
@@ -65,7 +69,8 @@ router.patch('/:id',
   }
 );
 
-router.put('/:id',
+router.put(
+  '/:id',
   validatorHandler(getProductSchema, 'params'),
   validatorHandler(updateProductSchema, 'body'),
   async (req, res, next) => {
@@ -80,13 +85,14 @@ router.put('/:id',
   }
 );
 
-router.delete('/:id',
+router.delete(
+  '/:id',
   validatorHandler(getProductSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
       await service.delete(id);
-      res.status(201).json({id});
+      res.status(201).json({ id });
     } catch (error) {
       next(error);
     }
