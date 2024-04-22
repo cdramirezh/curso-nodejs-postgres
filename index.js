@@ -5,6 +5,9 @@ const { checkApiKey } = require('./src/middlewares/auth.handler');
 
 const { logErrors, errorHandler, boomErrorHandler, queryErrorHandler } = require('./src/middlewares/error.handler');
 
+// this invokes and executes the file that links the strategies to passport
+require('./src/utils/auth/index');
+
 const app = express();
 const port = process.env.PORT || 3000;
 

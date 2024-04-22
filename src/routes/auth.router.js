@@ -3,9 +3,6 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const { config } = require('../config/config');
 
-// this invokes and executes the file that links the localStrategy to passport
-require('../utils/auth/index');
-
 const router = express.Router();
 
 router.post(
