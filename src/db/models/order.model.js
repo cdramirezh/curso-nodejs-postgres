@@ -28,7 +28,7 @@ const OrderSchema = {
   total: {
     type: DataTypes.VIRTUAL,
     get() {
-      if (this.items.length > 0) {
+      if (this.items && this.items.length > 0) {
         return this.items.reduce(
           (acum, item) => acum + item.price * item.OrderProduct.amount,
           0
