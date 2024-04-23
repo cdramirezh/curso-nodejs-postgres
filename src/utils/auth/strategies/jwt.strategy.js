@@ -7,6 +7,7 @@ const options = {
 };
 // El strategy, usando el secretOrKey y el jwtFromRequest, solito, autentica y devuelve el payload
 const JwtStrategy = new Strategy(options, (jwt_payload, done) => {
+  // Por alguna razón, devolverlo así mete el jwt_payload dentro del request en la propiedad .user
   return done(null, jwt_payload);
 });
 
