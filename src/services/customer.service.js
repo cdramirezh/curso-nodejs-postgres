@@ -32,6 +32,14 @@ class CustomerService {
     throw boom.notFound('customer not found');
   }
 
+  async findOneByUserId(userId) {
+    const customer = await models.Customer.findOne({
+      where: { '$Customer.user_id$': userId },
+    });
+    if (!customer) throw boom.notFound('User is not associated to a customer');
+    return customer;
+  }
+
   async update(id, changes) {
     const customer = await this.findOne(id);
     return customer.update(changes);
