@@ -9,6 +9,11 @@ const UserSchema = {
   },
   email: { allowNull: false, type: DataTypes.STRING, unique: true },
   password: { allowNull: false, type: DataTypes.STRING },
+  recoveryToken: {
+    field: 'recovery_token',
+    allowNull: true,
+    type: DataTypes.STRING,
+  },
   role: {
     allowNull: false,
     type: DataTypes.STRING,
