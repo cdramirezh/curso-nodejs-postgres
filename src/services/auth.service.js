@@ -1,8 +1,8 @@
 const boom = require('@hapi/boom');
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
 
 const { config } = require('../config/config');
+const { transporter } = require('../utils/mail');
 
 class AuthService {
   constructor() {}
@@ -21,21 +21,9 @@ class AuthService {
   }
 
   async sendRecoveryEmail(user) {
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
-      auth: {
-        user: config.emailUser,
-        pass: config.emailPass,
-      },
-    });
-
     const info = await transporter.sendMail({
-      from: config.emailUser,
       to: user.email,
       subject: 'Recupera tu password',
-      text: 'Recuperame esta',
       html: `<html>
         <ul>
           <li>id: ${user.id}</li>
