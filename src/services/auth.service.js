@@ -3,6 +3,9 @@ const jwt = require('jsonwebtoken');
 
 const { config } = require('../config/config');
 const { transporter } = require('../utils/mail');
+const UserService = require('./user.service');
+
+const userService = new UserService();
 
 class AuthService {
   constructor() {}
@@ -21,6 +24,12 @@ class AuthService {
   }
 
   async sendRecoveryEmail(user) {
+    const payload = { sub: user.id };
+    const token = jwt.sign(payload, config.jwtSecret, { expiresIn: '15min' });
+    const link = `https://el-fontend.com/recovery?token=${token}`;
+
+    await userService.update(user.id, { recoveryToken: token });
+
     const info = await transporter.sendMail({
       to: user.email,
       subject: 'Recupera tu password',
@@ -30,6 +39,8 @@ class AuthService {
           <li>role: ${user.role}</li>
           <li>created at: ${user.createdAt}</li>
         </ul>
+        <a href="${link}">Clic here to recuperar el password</a>
+        <small>${token}</small>
       </html>`,
     });
 
