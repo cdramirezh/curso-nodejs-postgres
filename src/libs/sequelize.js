@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
 const chalk = require('chalk');
-const setupModels = require('../db/models');
+const setupModels = require('../../db/models');
 
 const { config } = require('../config/config');
 
