@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const boom = require('@hapi/boom');
 const jwt = require('jsonwebtoken');
 
@@ -45,6 +46,16 @@ class AuthService {
     });
 
     return info;
+  }
+
+  async resetPassword(token, newPassword) {
+    const payload = jwt.verify(token, config.jwtSecret);
+    const userId = payload.sub;
+    const user = await userService.findOne(userId);
+    if (user.recoveryToken !== token) throw boom.unauthorized('Nanái cucas');
+    const hash = await bcrypt.hash(newPassword, 5);
+    userService.update(userId, { recoveryToken: null, password: hash });
+    return { message: 'Password changed successfully' };
   }
 }
 

@@ -3,12 +3,15 @@ const Joi = require('joi');
 const id = Joi.number().integer();
 const email = Joi.string().email();
 const password = Joi.string().min(8);
-const role = Joi.string().min(5)
+const role = Joi.string().min(5);
+const token = Joi.string().regex(
+  /^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_.+/=]*$/
+);
 
 const createUserSchema = Joi.object({
   email: email.required(),
   password: password.required(),
-  role: role.required()
+  role: role.required(),
 });
 
 const updateUserSchema = Joi.object({
@@ -25,10 +28,16 @@ const recoverPasswordSchema = Joi.object({
   email: email.required(),
 });
 
+const resetPasswordSchema = Joi.object({
+  token: token.required(),
+  newPassword: password.required(),
+});
+
 module.exports = {
   createUserSchema,
   updateUserSchema,
   getUserSchema,
   id,
   recoverPasswordSchema,
+  resetPasswordSchema,
 };

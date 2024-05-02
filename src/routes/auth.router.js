@@ -3,7 +3,10 @@ const express = require('express');
 const passport = require('passport');
 
 const validatorHandler = require('../middlewares/validator.handler');
-const { recoverPasswordSchema } = require('../schemas/user.schema');
+const {
+  recoverPasswordSchema,
+  resetPasswordSchema,
+} = require('../schemas/user.schema');
 const AuthService = require('../services/auth.service');
 const UserService = require('../services/user.service');
 
@@ -17,7 +20,7 @@ router.post(
   async (req, res, next) => {
     try {
       const user = req.user;
-      const token = authService.signToken(user);
+      const token = await authService.signToken(user);
       res.json({ user, token });
     } catch (error) {
       next(error);
@@ -38,6 +41,20 @@ router.post(
       if (error.isBoom && error?.output?.payload?.statusCode === 404)
         next(boom.unauthorized('Se te acabaron las fiestas'));
       else next(error);
+    }
+  }
+);
+
+router.post(
+  '/reset-password',
+  validatorHandler(resetPasswordSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const { token, newPassword } = req.body;
+      const info = await authService.resetPassword(token, newPassword);
+      res.json(info);
+    } catch (error) {
+      next(boom.unauthorized('Nanái cucas'));
     }
   }
 );

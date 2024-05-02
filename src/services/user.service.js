@@ -33,6 +33,8 @@ class UserService {
     const user = await this.findByEmail(email);
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) throw boom.unauthorized('password is not correct');
+    delete user.dataValues.password;
+    delete user.dataValues.recoveryToken;
     return user;
   }
 
