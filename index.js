@@ -42,7 +42,7 @@ app.use(boomErrorHandler);
 app.use(errorHandler);
 
 
-app.listen(port, "0.0.0.0", () => {
+app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log('Mi port' +  port);
 });
