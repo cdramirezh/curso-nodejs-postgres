@@ -7,7 +7,12 @@ const { config } = require('../config/config');
 const USER = encodeURIComponent(config.dbUser);
 const PASSWORD = encodeURIComponent(config.dbPassword);
 const ENGINE = config.dbEngine;
-const URI = `${ENGINE}://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
+
+let URI;
+if (config.dbPrivateUrl) URI = config.dbPrivateUrl;
+else if (config.dbUrl) URI = config.dbUrl;
+else
+  URI = `${ENGINE}://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
 
 const sequelize = new Sequelize(URI, {
   dialect: ENGINE,
