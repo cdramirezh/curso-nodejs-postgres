@@ -14,12 +14,6 @@ module.exports = {
   development: {
     url: URI,
     dialect: ENGINE,
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false
-      }
-    },
   },
   production: {
     url: URI,
