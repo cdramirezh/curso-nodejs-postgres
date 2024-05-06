@@ -6,4 +6,4 @@ ENV POSTGRES_PASSWORD=admin123
 
 EXPOSE 5432
 
-CMD ["npm", "run", "start"]
+CMD ["echo", "killMe"]
