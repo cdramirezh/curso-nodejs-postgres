@@ -23,7 +23,8 @@ const options = {
     }
   }
 }
-app.use(cors(options));
+// app.use(cors(options));
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.send('Hola mi server en express');
