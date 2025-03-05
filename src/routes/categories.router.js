@@ -38,9 +38,9 @@ router.get(
 
 router.post(
   '/',
-  passport.authenticate('jwt', { session: false }),
+  // passport.authenticate('jwt', { session: false }),
   validatorHandler(createCategorySchema, 'body'),
-  checkRoles(['admin', 'seller']),
+  // checkRoles(['admin', 'seller']),
   async (req, res, next) => {
     try {
       const body = req.body;
@@ -54,7 +54,7 @@ router.post(
 
 router.patch(
   '/:id',
-  passport.authenticate('jwt', { session: false }),
+  // passport.authenticate('jwt', { session: false }),
   validatorHandler(getCategorySchema, 'params'),
   validatorHandler(updateCategorySchema, 'body'),
   async (req, res, next) => {
@@ -71,7 +71,7 @@ router.patch(
 
 router.delete(
   '/:id',
-  passport.authenticate('jwt', { session: false }),
+  // passport.authenticate('jwt', { session: false }),
   validatorHandler(getCategorySchema, 'params'),
   async (req, res, next) => {
     try {
